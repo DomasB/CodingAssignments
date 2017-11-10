@@ -55,7 +55,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataStructures\DataStructures.csproj">
+    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
       <Project>{e4ae115a-ac7d-4518-b1bf-fc3ccc452ddc}</Project>
       <Name>DataStructures</Name>
     </ProjectReference>
