@@ -31,18 +31,34 @@ namespace DataStructures
         {
             get
             {
-                throw new NotImplementedException();
+                Node<T> thisNode = _head;
+                int count = 0;
+                if (thisNode != null)
+                {
+                    count++;
+                    while (thisNode.Next != null)
+                    {
+                        count++;
+                        thisNode = thisNode.Next;
+                    }
+                }
+                return count;
             }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            Node<T> current = _head;
+            while (current != null)
+            {
+                yield return current.Value;
+                current = current.Next;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator)GetEnumerator();
         }
 
         public void Add(T item)
@@ -53,8 +69,8 @@ namespace DataStructures
             }
             else
             {
-                var thisNode = _head;
-                var nextNode = thisNode.Next;
+                Node<T> thisNode = _head;
+                Node<T> nextNode = thisNode.Next;
 
                 do
                 {
@@ -82,12 +98,18 @@ namespace DataStructures
 
         public override string ToString()
         {
-            var str = _head.Value.ToString();
-            var nextNode = _head.Next;
-            while(nextNode != null)
+            string str = "";
+            if (_head == null || _head.Value == null) return str;
+
+            str = _head.Value.ToString();
+            if (_head.Next != null)
             {
-                str = str + "," + nextNode.Value.ToString();
-                nextNode = nextNode.Next;
+                Node<T> nextNode = _head.Next;
+                while (nextNode != null)
+                {
+                    str = str + "," + nextNode.Value.ToString();
+                    nextNode = nextNode.Next;
+                }
             }
             return str;
         }
@@ -101,11 +123,43 @@ namespace DataStructures
         {
             get
             {
-                throw new NotImplementedException();
+                if (index >= this.Count) throw new IndexOutOfRangeException();
+                Node<T> thisNode = _head;
+                int count = 0;
+                if (thisNode != null)
+                {
+                    while (count < index)
+                    {
+                        count++;
+                        thisNode = thisNode.Next;
+                    }
+                }
+                if (thisNode != null)
+                {
+                    return thisNode.Value;
+                }
+                else
+                {
+                    return default(T);
+                }
             }
             set
             {
-                throw new NotImplementedException();
+                if (index >= this.Count) throw new IndexOutOfRangeException();
+                Node<T> thisNode = _head;
+                int count = 0;
+                if (thisNode != null)
+                {
+                    while (count < index)
+                    {
+                        count++;
+                        thisNode = thisNode.Next;
+                    }
+                }
+                if (thisNode != null)
+                {
+                    thisNode.Value = value;
+                }
             }
         }
     }
