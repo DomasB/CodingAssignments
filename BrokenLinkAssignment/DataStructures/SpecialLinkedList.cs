@@ -22,7 +22,8 @@ namespace DataStructures
         {
             get
             {
-                throw new NotImplementedException(); // returns first element of list
+                if (_head == null) _head = new Node<T>();
+                return _head.Value;
             }
         }
 
@@ -46,7 +47,27 @@ namespace DataStructures
 
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            if (_head == null) {
+                _head = new Node<T>();
+                _head.Value = item;
+            }
+            else
+            {
+                var thisNode = _head;
+                var nextNode = thisNode.Next;
+
+                do
+                {
+                    nextNode = thisNode.Next;
+                    if (thisNode.Next == null)
+                    {
+                        var newNode = new Node<T>();
+                        newNode.Value = item;
+                        thisNode.Next = newNode;
+                    }
+                    thisNode = nextNode;
+                } while (nextNode != null);
+            }
         }
 
         public void Remove(T item)
@@ -61,7 +82,14 @@ namespace DataStructures
 
         public override string ToString()
         {
-            throw new NotImplementedException(); // should print all members separated by comma (CSV format)
+            var str = _head.Value.ToString();
+            var nextNode = _head.Next;
+            while(nextNode != null)
+            {
+                str = str + "," + nextNode.Value.ToString();
+                nextNode = nextNode.Next;
+            }
+            return str;
         }
 
         public string ToStringReverse()

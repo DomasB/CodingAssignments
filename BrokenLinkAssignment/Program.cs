@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataStructures;
+using static System.Linq.Enumerable;
 
 namespace BrokenLinkAssignment
 {
@@ -17,8 +19,16 @@ namespace BrokenLinkAssignment
             // add 100 random members to it
             // print all 100 members to console
 
-            // var list = new SpecialLinkedList<int>();
-            // Console.WriteLine(list.ToString());
+            var list = new SpecialLinkedList<int>();
+            Random rnd = new Random();
+
+            foreach (var index in Range(1, 100))
+            {
+                // list.Add(rnd.Next(1,10000));
+                list.Add(index);
+            }
+            Console.WriteLine(list.ToString());
+
         }
     }
 }
