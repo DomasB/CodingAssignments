@@ -20,19 +20,15 @@ namespace BrokenLinkAssignment
             // print all 100 members to console
 
             var list = new SpecialLinkedList<int>();
-            var emptyList = new SpecialLinkedList<int>();
 
             Random rnd = new Random();
 
             foreach (var index in Range(1, 100))
             {
-                // list.Add(rnd.Next(1,10000));
-                list.Add(index);
+                list.Add(rnd.Next(1,10000));
             }
-            Console.WriteLine(list[99]);
-            Console.WriteLine(emptyList.ToString());
-            Console.WriteLine(list.ToString());
 
+            Console.WriteLine(list.ToString());
         }
     }
 }

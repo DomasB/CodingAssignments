@@ -88,12 +88,42 @@ namespace DataStructures
 
         public void Remove(T item)
         {
-            throw new NotImplementedException();
+            if (_head == null) throw new Exception("ItemNotFound");
+            if (_head.Next == null)
+            {
+                _head = null;
+                return;
+            }
+            Node<T> thisNode = _head;
+            Node<T> previousNode = _head;
+
+            while (thisNode.Value.ToString() != item.ToString())
+            {
+                if (thisNode.Next == null) throw new Exception("ItemNotFound");
+                previousNode = thisNode;
+                thisNode = thisNode.Next;
+            };
+            previousNode.Next = thisNode.Next;
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if (index >= this.Count || _head == null) throw new IndexOutOfRangeException();
+            if (_head.Next == null)
+            {
+                _head = null;
+                return;
+            }
+            Node<T> thisNode = _head;
+            Node<T> previousNode = _head;
+            int count = 0;
+            while (count < index)
+            {
+                count++;
+                previousNode = thisNode;
+                thisNode = thisNode.Next;
+            }
+            previousNode.Next = thisNode.Next;
         }
 
         public override string ToString()
@@ -114,52 +144,45 @@ namespace DataStructures
             return str;
         }
 
-        public string ToStringReverse()
+        public string ToStringReverse(Node<T> thisNode = default(Node<T>))
         {
-            throw new NotImplementedException();// should print all members separated by comma in reverse order (figure the best and most performant way)
+            if (_head != null && thisNode == null)
+            {
+                thisNode = _head;
+            }
+            if (_head == null || thisNode.Value == null)
+            {
+                return "";
+            }
+            if (thisNode.Next == null) return thisNode.Value.ToString();
+            return ToStringReverse(thisNode.Next) + "," + thisNode.Value;
         }
 
         public T this[int index]
         {
             get
             {
-                if (index >= this.Count) throw new IndexOutOfRangeException();
+                if (index >= this.Count || _head == null) throw new IndexOutOfRangeException();
                 Node<T> thisNode = _head;
                 int count = 0;
-                if (thisNode != null)
+                while (count < index)
                 {
-                    while (count < index)
-                    {
-                        count++;
-                        thisNode = thisNode.Next;
-                    }
+                    count++;
+                    thisNode = thisNode.Next;
                 }
-                if (thisNode != null)
-                {
-                    return thisNode.Value;
-                }
-                else
-                {
-                    return default(T);
-                }
+                return thisNode.Value;
             }
             set
             {
-                if (index >= this.Count) throw new IndexOutOfRangeException();
+                if (index >= this.Count || _head == null) throw new IndexOutOfRangeException();
                 Node<T> thisNode = _head;
                 int count = 0;
-                if (thisNode != null)
+                while (count < index)
                 {
-                    while (count < index)
-                    {
-                        count++;
-                        thisNode = thisNode.Next;
-                    }
+                    count++;
+                    thisNode = thisNode.Next;
                 }
-                if (thisNode != null)
-                {
-                    thisNode.Value = value;
-                }
+                thisNode.Value = value;
             }
         }
     }
